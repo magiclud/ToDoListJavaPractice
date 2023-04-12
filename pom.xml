@@ -31,4 +31,16 @@
     </dependency>
 
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <configuration>
+          <mainClass>org.example.ToDoList</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
