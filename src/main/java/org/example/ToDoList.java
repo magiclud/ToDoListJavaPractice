@@ -27,7 +27,7 @@ public class ToDoList {
                     System.out.println("Enter the task:");
                     in.nextLine();
                     String readText = in.nextLine();
-                    tasksList.add(new Task(readText));
+                    tasksList.add(new Task(readText, false));
                     break;
                 case 2:
                     System.out.println("Write number of the task to remove:");
@@ -37,18 +37,19 @@ public class ToDoList {
                     break;
                 case 3:
                     System.out.println("Your todo list: ");
-//                    System.out.println(tasksList);
-                    tasksList.forEach(e -> System.out.println(tasksList.indexOf(e) + ": " + e.toString()));
                     break;
                 case 4:
                     System.out.println("Which task is completed:");
                     in.nextLine();
                     int idCompleted = in.nextInt();
-                    tasksList.get(idCompleted).setCompleted(true);
-                    System.out.println(tasksList.get(idCompleted));
+                    Task updatedElement = new Task(tasksList.get(idCompleted).value(), true);
+                    tasksList.add(updatedElement);
+                    tasksList.remove(idCompleted);
+                    System.out.println(updatedElement);
                     break;
                 default:
             }
+            tasksList.forEach(e -> System.out.println(tasksList.indexOf(e) + ": " + e.toString()));
         } while (action != 5);
     }
 
