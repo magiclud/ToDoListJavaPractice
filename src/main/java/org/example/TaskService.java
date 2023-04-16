@@ -22,9 +22,13 @@ public class TaskService {
     }
 
     public void markAsCompleted(int taskId) {
-        Task updatedElement = new Task(tasks.get(taskId).value(), true);
-        tasks.add(updatedElement);
-        tasks.remove(taskId);
+        if(taskId>=0 && taskId<tasks.size()) {
+            Task updatedElement = new Task(tasks.get(taskId).value(), true);
+            tasks.add(updatedElement);
+            tasks.remove(taskId);
+        }else {
+            System.out.println("Provided wrong tasks id");
+        }
     }
 
     public void add(String readText) {
