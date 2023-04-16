@@ -7,7 +7,7 @@ public class ToDoList {
 
     public static void main(String[] args) {
 
-        ArrayList<Task> tasksList = new ArrayList<>();
+        TaskService taskService = new TaskService(new ArrayList<>());
         Scanner in = new Scanner(System.in);
 
         int action;
@@ -23,33 +23,29 @@ public class ToDoList {
         do {
             action = readCorrectNumberFromConsole(in);
             switch (action) {
-                case 1:
+                case 1 -> {
                     System.out.println("Enter the task:");
                     in.nextLine();
                     String readText = in.nextLine();
-                    tasksList.add(new Task(readText, false));
-                    break;
-                case 2:
+                    taskService.add(readText);
+                }
+                case 2 -> {
                     System.out.println("Write number of the task to remove:");
                     in.nextLine();
                     int idToRemove = in.nextInt();
-                    tasksList.remove(idToRemove);
-                    break;
-                case 3:
-                    System.out.println("Your todo list: ");
-                    break;
-                case 4:
+                    taskService.remove(idToRemove);
+                }
+                case 3 -> System.out.println("Your todo list: ");
+                case 4 -> {
                     System.out.println("Which task is completed:");
                     in.nextLine();
                     int idCompleted = in.nextInt();
-                    Task updatedElement = new Task(tasksList.get(idCompleted).value(), true);
-                    tasksList.add(updatedElement);
-                    tasksList.remove(idCompleted);
-                    System.out.println(updatedElement);
-                    break;
-                default:
+                    taskService.markAsCompleted(idCompleted);
+                }
+                default -> {
+                }
             }
-            tasksList.forEach(e -> System.out.println(tasksList.indexOf(e) + ": " + e.toString()));
+            taskService.printAll();
         } while (action != 5);
     }
 
