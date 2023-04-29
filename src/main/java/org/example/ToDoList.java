@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ToDoList {
@@ -45,10 +46,13 @@ public class ToDoList {
                 default -> {
                 }
             }
-            taskService.printAll();
+            printTasksList(taskService.getAll());
         } while (action != 5);
     }
 
+    private static void printTasksList(List<Task> tasks) {
+        tasks.forEach(e -> System.out.println(tasks.indexOf(e) + ": " + e.toString()));
+    }
 
     private static int readCorrectNumberFromConsole(Scanner in) {
         int number;

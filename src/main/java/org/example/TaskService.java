@@ -1,6 +1,8 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class TaskService {
     ArrayList<Task> tasks;
@@ -10,23 +12,19 @@ public class TaskService {
     }
 
     public void remove(int taskId) {
-        if(taskId>=0 && taskId<tasks.size()) {
+        if (taskId >= 0 && taskId < tasks.size()) {
             tasks.remove(taskId);
-        }else {
+        } else {
             System.out.println("Provided wrong tasks id");
         }
     }
 
-    public void printAll() {
-        tasks.forEach(e -> System.out.println(tasks.indexOf(e) + ": " + e.toString()));
-    }
-
     public void markAsCompleted(int taskId) {
-        if(taskId>=0 && taskId<tasks.size()) {
+        if (taskId >= 0 && taskId < tasks.size()) {
             Task updatedElement = tasks.get(taskId).asCompleted();
             tasks.add(updatedElement);
             tasks.remove(taskId);
-        }else {
+        } else {
             System.out.println("Provided wrong tasks id");
         }
     }
@@ -35,7 +33,7 @@ public class TaskService {
         tasks.add(new Task(readText, false));
     }
 
-    public ArrayList<Task> getAll() {
-        return tasks;
+    public List<Task> getAll() {
+        return Collections.unmodifiableList(tasks);
     }
 }
