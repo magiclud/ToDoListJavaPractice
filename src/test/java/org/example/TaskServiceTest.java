@@ -1,17 +1,18 @@
 package org.example;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskServiceTest {
     TaskService taskService;
 
-    @BeforeEach
+    @BeforeTest
     void setUp() {
         Task task1 = new Task("Zadanie 1", false);
         Task task2 = new Task("Zadanie 2", true);
@@ -28,7 +29,7 @@ public class TaskServiceTest {
         String newTask = "Tidy up your room";
         int sizeBeforeRemoving = taskService.getAll().size();
         taskService.add(newTask);
-        assertEquals(sizeBeforeRemoving + 1, taskService.getAll().size(), "The list of elements has not increased");
+        assertThat(taskService.getAll().size()).isEqualTo(sizeBeforeRemoving + 1);
     }
 
     @Test
@@ -36,7 +37,7 @@ public class TaskServiceTest {
         int indexToRemove = 1;
         int sizeBeforeRemoving = taskService.getAll().size();
         taskService.remove(indexToRemove);
-        assertEquals(sizeBeforeRemoving - 1, taskService.getAll().size(), "The list of elements has not been reduced by 1");
+        assertThat(taskService.getAll().size()).isEqualTo(sizeBeforeRemoving - 1);
     }
 
     @Test
@@ -44,17 +45,17 @@ public class TaskServiceTest {
         int indexToRemove = -2;
         int sizeBeforeRemoving = taskService.getAll().size();
         taskService.remove(indexToRemove);
-        assertEquals(sizeBeforeRemoving, taskService.getAll().size(), "The list of elements has changed");
+        assertThat(taskService.getAll().size()).isEqualTo(sizeBeforeRemoving);
     }
 
     @Test
     public void shouldMarkTaskAsCompleted() {
         int indexOfTheUncompletedTask = 0;
         boolean taskStatusBeforeTheChange = taskService.getAll().get(indexOfTheUncompletedTask).completed();
-        assertFalse(taskStatusBeforeTheChange, "Task is not marked as uncompleted");
+        assertThat(taskStatusBeforeTheChange).isFalse();
         taskService.markAsCompleted(indexOfTheUncompletedTask);
         boolean taskStatusAfterTheChange = taskService.getAll().get(indexOfTheUncompletedTask).completed();
-        assertTrue(taskStatusAfterTheChange, "Task is not marked as completed");
+        assertThat(taskStatusAfterTheChange).isTrue();
     }
 
     @Test
@@ -63,6 +64,6 @@ public class TaskServiceTest {
         List<Boolean> statusesBeforeAction = taskService.getAll().stream().map(Task::completed).toList();
         taskService.markAsCompleted(indexOfTheUncompletedTask);
         List<Boolean> statusesAfterAction = taskService.getAll().stream().map(Task::completed).toList();
-        assertEquals(statusesBeforeAction, statusesAfterAction);
+        assertThat(statusesAfterAction).isEqualTo(statusesBeforeAction);
     }
 }
