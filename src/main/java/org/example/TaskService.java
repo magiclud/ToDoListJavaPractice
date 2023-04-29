@@ -23,7 +23,7 @@ public class TaskService {
 
     public void markAsCompleted(int taskId) {
         if(taskId>=0 && taskId<tasks.size()) {
-            Task updatedElement = new Task(tasks.get(taskId).value(), true);
+            Task updatedElement = tasks.get(taskId).asCompleted();
             tasks.add(updatedElement);
             tasks.remove(taskId);
         }else {
