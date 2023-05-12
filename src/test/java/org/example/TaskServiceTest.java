@@ -26,7 +26,7 @@ public class TaskServiceTest {
         taskService.add(newTask);
 
         //Then:
-        assertThat(taskService.getAll().stream().map(Task::value)).containsOnlyOnce(newTask);
+        assertThat(taskService.getAll().stream().map(Task::value).toList()).containsOnlyOnce(newTask);
     }
 
     @Test
@@ -41,7 +41,7 @@ public class TaskServiceTest {
         taskService.remove(indexToRemove);
 
         //Then:
-        assertThat(taskService.getAll().stream().map(Task::value)).doesNotContain(elementNameToRemove);
+        assertThat(taskService.getAll().stream().map(Task::value).toList()).doesNotContain(elementNameToRemove);
     }
 
     @Test
@@ -68,9 +68,9 @@ public class TaskServiceTest {
 
         //When:
         taskService.markAsCompleted(indexOfTheUncompletedTask);
-        boolean taskStatusAfterTheChange = taskService.getAll().get(indexOfTheUncompletedTask).completed();
 
         //Then:
+        boolean taskStatusAfterTheChange = taskService.getAll().get(indexOfTheUncompletedTask).completed();
         assertThat(taskStatusAfterTheChange).isTrue();
     }
 
